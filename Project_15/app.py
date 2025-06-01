@@ -73,16 +73,18 @@ books = [
 users = [
     {"username": "testuser", "password": "testuser", "role": "admin"},
     {"username": "John", "password": "John", "role": "reader"},
-    {"username": "Anne", "password": "Anne", "role": "admin"}
+    {"username": "Anne", "password": "Anne", "role": "admin"},
+    {"username": "Madeleine", "password": "Madeleine", "role": "reader"},
+    {"username": "testUser", "password": "testUser", "role": "admin"}
 ]
 
 
-# def admin_required(fn):
-#    @wraps(fn)
-#    def wrapper(*args, **kwargs):
+def admin_required(fn):
+   @wraps(fn)
+   def wrapper(*args, **kwargs):
 
-#           return fn(*args, **kwargs)
-#    return wrapper
+          return fn(*args, **kwargs)
+   return wrapper
 
 
 def checkUser(username, password):
