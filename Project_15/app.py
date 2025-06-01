@@ -80,13 +80,13 @@ users = [
 
 
 def admin_required(fn):
-    @wraps(fn)
+    @wraps(fn)  # This wrapper copies the original, or wrapped, function's name and docstring __name__ and __doc__
     def wrapper(*args, **kwargs):
-        verify_jwt_in_request()
-        claims = get_jwt()
+        verify_jwt_in_request()  # Verifies that a valid JWT is present in the request, if optional=True then no JWT is also valid
+        claims = get_jwt()  # returns the python dictionary which has the payload of the JWT, data in payload is known as the claim
 
         if claims["role"] != "admin":
-            return jsonify(msg= "Admins only!"), 403
+            return jsonify(msg= "Admins only!"), 403  # function that transforms python data into json format
 
         return fn(*args, **kwargs)
     return wrapper
