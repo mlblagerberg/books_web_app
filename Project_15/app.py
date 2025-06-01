@@ -80,11 +80,16 @@ users = [
 
 
 def admin_required(fn):
-   @wraps(fn)
-   def wrapper(*args, **kwargs):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        verify_jwt_in_request()
+        claims = get_jwt()
 
-          return fn(*args, **kwargs)
-   return wrapper
+        if claims["role"] != "admin":
+            return jsonify(msg= "Admins only!"), 403
+
+        return fn(*args, **kwargs)
+    return wrapper
 
 
 def checkUser(username, password):
@@ -108,9 +113,9 @@ def login():
         if validUser != None:
             # set JWT token
 
-            user_claims = {"role": validUser["roles"]}
+            user_claims = {"role": validUser["role"]}
             access_token = create_access_token(
-                username, user_claims=user_claims)
+                identity=username, additional_claims=user_claims)
 
             response = make_response(
                 render_template(
