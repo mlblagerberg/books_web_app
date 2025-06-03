@@ -77,7 +77,7 @@ users = [
     {"username": "Madeleine", "password": "Madeleine", "role": "reader"},
     {"username": "testUser", "password": "testUser", "role": "admin"}
 ]
-
+ç
 
 def admin_required(fn):
     @wraps(fn)  # This wrapper copies the original, or wrapped, function's name and docstring __name__ and __doc__
@@ -186,4 +186,4 @@ def addimage():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    app.run(debug=True, host="0.0.0.0", port=5010)
